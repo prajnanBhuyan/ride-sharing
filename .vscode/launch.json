@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: RideSharing",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\src\\RideSharing\\RideSharing.csproj",
+            "launchConfigurationId": "TargetFramework=;RideSharing",
+            "args": [
+                "D:\\Projects\\ride-sharing\\sample_input\\input1.txt"
+            ]
+        }
+    ]
+}

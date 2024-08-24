@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace RideSharing;
+﻿namespace RideSharing;
 
 class Program
 {
@@ -9,8 +7,7 @@ class Program
     {
         try
         {
-            // var inputFilePath = args[0];
-            var inputFilePath = "D:\\Projects\\ride-sharing\\sample_input\\input1.txt";
+            var inputFilePath = args[0];
 
             if(File.Exists(inputFilePath))
             {
@@ -20,43 +17,64 @@ class Program
 
                 while (line != null)
                 {
-                    // TODO: Process command
                     var commandParts = line.Split(
                         CommandDelimiter,
                         2,
                         StringSplitOptions.RemoveEmptyEntries |
-                        StringSplitOptions.TrimEntries);
-                    var command = commandParts[0];
-                    var commandArgs = commandParts[1].Split(
-                        CommandDelimiter,
-                        StringSplitOptions.RemoveEmptyEntries |
                         StringSplitOptions.TrimEntries
                     );
-                    switch(commandParts[0])
+                    
+                    if (commandParts.Length != 0
+                        && Enum.TryParse(commandParts[0], out Command command))
                     {
-                        case "ADD_DRIVER":
-                            Console.WriteLine($"arguments: {commandParts[1]}");
-                            rideService.AddDriver(
-                                commandArgs[0],
-                                int.Parse(commandArgs[1]),
-                                int.Parse(commandArgs[2])
-                            );
-                            break;
-                        case "ADD_RIDER":
-                            Console.WriteLine($"arguments: {commandParts[1]}");
-                            break;
-                        case "MATCH":
-                            Console.WriteLine($"arguments: {commandParts[1]}");
-                            break;
-                        case "START_RIDE":
-                            Console.WriteLine($"arguments: {commandParts[1]}");
-                            break;
-                        case "STOP_RIDE":
-                            Console.WriteLine($"arguments: {commandParts[1]}");
-                            break;
-                        case "BILL":
-                            Console.WriteLine($"arguments: {commandParts[1]}");
-                            break;
+                        var commandArgs = commandParts[1].Split(
+                            CommandDelimiter,
+                            StringSplitOptions.RemoveEmptyEntries |
+                            StringSplitOptions.TrimEntries
+                        );
+                        switch (command)
+                        {
+                            case Command.ADD_DRIVER:
+                                rideService.AddDriver(
+                                    commandArgs[0],
+                                    int.Parse(commandArgs[1]),
+                                    int.Parse(commandArgs[2])
+                                );
+                                break;
+                            case Command.ADD_RIDER:
+                                rideService.AddRider(
+                                    commandArgs[0],
+                                    int.Parse(commandArgs[1]),
+                                    int.Parse(commandArgs[2])
+                                );
+                                break;
+                            case Command.MATCH:
+                                rideService.Match(
+                                    commandArgs[0]
+                                );
+                                break;
+                            case Command.START_RIDE:
+                                rideService.StartRide(
+                                    commandArgs[0],
+                                    int.Parse(commandArgs[1]),
+                                    commandArgs[2]
+                                );
+                                break;
+                            case Command.STOP_RIDE:
+                                rideService.StopRide(
+                                    commandArgs[0],
+                                    int.Parse(commandArgs[1]),
+                                    int.Parse(commandArgs[2]),
+                                    int.Parse(commandArgs[3])
+
+                                );
+                                break;
+                            case Command.BILL:
+                                rideService.GenerateBill(
+                                    commandArgs[0]
+                                );
+                                break;
+                        }
                     }
                     
                     // Read next command
@@ -72,10 +90,6 @@ class Program
         catch(Exception e)
         {
             Console.WriteLine("Exception: " + e.Message);
-        }
-        finally
-        {
-            Console.WriteLine("Executing finally block.");
         }
     }
 }

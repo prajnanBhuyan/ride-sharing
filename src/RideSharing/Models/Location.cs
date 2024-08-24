@@ -5,12 +5,6 @@ class Location
     public required int XCoordinate {get; init; }
     public required int YCoordinate {get; init; }
 
-    public Location(int xCoordinate, int yCoordinate)
-    {
-        XCoordinate = xCoordinate;
-        YCoordinate = yCoordinate;
-    }
-
     public double CalculateDistance(Location other)
     {
         return Math.Sqrt(

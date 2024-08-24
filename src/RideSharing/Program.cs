@@ -66,7 +66,6 @@ class Program
                                     int.Parse(commandArgs[1]),
                                     int.Parse(commandArgs[2]),
                                     int.Parse(commandArgs[3])
-
                                 );
                                 break;
                             case Command.BILL:

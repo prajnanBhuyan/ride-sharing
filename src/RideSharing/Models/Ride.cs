@@ -22,15 +22,6 @@ class Ride
     public required Driver Driver { get; init; }
     public bool IsActive { get {return _isActive;} }
 
-    public double CalculateFare()
-    {
-        var distanceFare = _distance * FarePerKm;
-        var timeFare = _timeTakenInMins * FarePerMin;
-        var totalFare = BaseFare + distanceFare + timeFare;
-        var serviceTax = totalFare * ServiceTaxRate;
-        return Math.Round(totalFare + serviceTax, 2);
-    }
-
     public void StartRide()
     {
         Driver.IsAvailable = false;
@@ -45,4 +36,12 @@ class Ride
         _distance = Math.Round(destination.CalculateDistance(Rider.Location), 2);
     }
 
+    public double CalculateFare()
+    {
+        var distanceFare = _distance * FarePerKm;
+        var timeFare = _timeTakenInMins * FarePerMin;
+        var totalFare = BaseFare + distanceFare + timeFare;
+        var serviceTax = totalFare * ServiceTaxRate;
+        return Math.Round(totalFare + serviceTax, 2);
+    }
 }
